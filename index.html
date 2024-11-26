@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bomm to Blust - Stress Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/mocha-css@1.0/mocha.min.css" rel="stylesheet">
+</head>
+<body style="height: 100vh; width: 100%;">
+    <div style="height: 400px; width: 60%; margin: 100px auto; text-align: center;">
+        <h1 style="font-size: 4em; margin: 30px 0;">We Come to Stress Test Your PC</h1>
+        <h3 align="center" id="show">Pending 0</h3>
+        <button style="margin-top: 20px; color: aliceblue;background-color: red; padding: 10px 40px; font-size: 2em; border-radius: 5px;" id="btnStart">Start</button>
+        <button style="margin-top: 20px; color: aliceblue;background-color: green; padding: 10px 40px; font-size: 2em; border-radius: 5px;" id="btnStop" disabled>Stop</button>
+    </div>
+    <script>
+        const btnStart = document.getElementById('btnStart');
+        const btnStop = document.getElementById('btnStop');
+        let show = document.getElementById('show');
+
+        let stressInterval;
+        let startTime;
+        let count = 0;
+
+        btnStart.addEventListener('click', () => {
+            btnStart.disabled = true;
+            btnStop.disabled = false;
+            show.textContent = "Stress testing in progress...";
+            startTime = Date.now();
+            stressTest();
+        });
+
+        btnStop.addEventListener('click', () => {
+            clearInterval(stressInterval);
+            show.textContent = "Stress test stopped.";
+            btnStart.disabled = false;
+            btnStop.disabled = true;
+        });
+
+        function stressTest() {
+            let count = 0;
+            const duration = 3600 * 10000; 
+
+            stressInterval = setInterval(() => {
+                if (Date.now() - startTime >= duration) {
+                    clearInterval(stressInterval);
+                    show.textContent = "Stress test completed after 1 hour.";
+                    btnStart.disabled = false;
+                    btnStop.disabled = true;
+                    return;
+                }
+
+                for (let i = 0; i < 1e8; i++) {  // Increased iterations to 100x
+                    count += i;
+                    console.log(i*1e9);
+                    console.log(i);
+                    console.log(i/2e9);
+                    console.log(i+"  how are you its just start");
+                    console.log(i);
+                    console.log("hacking...");
+                    console.log(i);
+                    console.log("hacking...");
+                    console.log(i);
+                    console.log("hacking...");
+                    console.log(i);
+                    console.log("hacking...");
+                }
+
+                show.textContent = `Working... Count: ${count}`;
+            }, 0);
+        }
+    </script>
+</body>
+</html>
